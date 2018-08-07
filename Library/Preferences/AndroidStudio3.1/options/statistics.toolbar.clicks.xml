@@ -2,15 +2,19 @@
   <component name="ToolbarClicksCollector">
     <counts>
       <entry action="Debug@NavBarToolbar" count="1" />
-      <entry action="Run@NavBarToolbar" count="113" />
-      <entry action="com.android.tools.idea.actions.AndroidNewModuleAction@AndroidProjectStructureConfigurable" count="9" />
+      <entry action="MakeGradleProject@NavBarToolbar" count="1" />
+      <entry action="Run@NavBarToolbar" count="181" />
+      <entry action="com.android.tools.idea.actions.AndroidNewModuleAction@AndroidProjectStructureConfigurable" count="10" />
+      <entry action="com.android.tools.idea.common.actions.IssueNotificationAction@NlRhsConfigToolbar" count="1" />
       <entry action="com.android.tools.idea.configurations.DeviceMenuAction@toolbar" count="14" />
       <entry action="com.android.tools.idea.fd.actions.HotswapAction@NavBarToolbar" count="3" />
       <entry action="com.android.tools.idea.gradle.project.build.invoker.GradleBuildInvoker$2$1@BuildView" count="2" />
       <entry action="com.android.tools.idea.logcat.AndroidLogcatView$MyConfigureLogcatHeaderAction@AndroidLogcatView" count="2" />
       <entry action="com.android.tools.idea.uibuilder.property.editors.BrowsePanel$1@unknown" count="4" />
-      <entry action="com.android.tools.idea.uibuilder.property.editors.BrowsePanel$BrowseAction@unknown" count="17" />
+      <entry action="com.android.tools.idea.uibuilder.property.editors.BrowsePanel$BrowseAction@unknown" count="22" />
+      <entry action="com.intellij.build.AbstractViewManager$CloseBuildContentAction@BuildView" count="1" />
       <entry action="com.intellij.diagnostic.IdeErrorsDialog$ForwardAction@IdeErrorsForward" count="2" />
+      <entry action="com.intellij.execution.impl.ConsoleViewImpl$ClearAllAction@BuildResults" count="1" />
       <entry action="com.intellij.history.integration.ui.views.HistoryDialog$RevertAction@HistoryDialogRevisions" count="1" />
       <entry action="com.intellij.openapi.vcs.changes.ui.ChangesTree$6@DirectoryHistoryDiffPanel" count="2" />
       <entry action="com.intellij.openapi.vcs.changes.ui.ChangesTree$7@DirectoryHistoryDiffPanel" count="1" />

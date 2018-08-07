@@ -1,6 +1,7 @@
 package xyz.bzennn.vkmusicactualizer.implementations.views;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -10,9 +11,12 @@ import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
@@ -28,12 +32,18 @@ import org.json.JSONObject;
 import xyz.bzennn.vkmusicactualizer.Application;
 import xyz.bzennn.vkmusicactualizer.Presenter;
 import xyz.bzennn.vkmusicactualizer.R;
+import xyz.bzennn.vkmusicactualizer.implementations.models.AccountInfoModel;
+import xyz.bzennn.vkmusicactualizer.models.AccountInfoInterface;
+import xyz.bzennn.vkmusicactualizer.utils.Utils;
 import xyz.bzennn.vkmusicactualizer.views.LoginView;
+import xyz.bzennn.vkmusicactualizer.views.MainView;
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
-    private static Toast toast;
     private static SharedPreferences.Editor editor = Application.sharedPreferences.edit();
+    private static AccountInfoInterface accountInfo = new AccountInfoModel();
+    private static ProgressBar progressBar;
     private static Intent intent;
+    private static Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
             view.setText(Html.fromHtml(formattedText));
         }
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         intent = new Intent(this, MainActivity.class);
     }
 
@@ -89,27 +100,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                VKRequest requestUserInfo = VKApi.users().get();
-                requestUserInfo.executeWithListener(new VKRequest.VKRequestListener() {
-
-                    @Override
-                    public void onComplete(VKResponse response) {
-                        super.onComplete(response);
-                        try {
-                            JSONArray resp = response.json.getJSONArray("response");
-                            JSONObject user = resp.getJSONObject(0);
-
-                            editor.putString(Application.APP_PREFERENCES_USER_ID, user.getString("id"));
-                            editor.putString(Application.APP_PREFERENCES_USER_NAME, user.getString("first_name"));
-                            editor.putString(Application.APP_PREFERENCES_USER_SURNAME, user.getString("last_name"));
-                            editor.apply();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                });
+                accountInfo.requestUserInfoIntoPreferences();
 
                 toast = Toast.makeText(getApplicationContext(), R.string.login_toast, Toast.LENGTH_SHORT);
                 toast.show();
@@ -117,8 +108,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
                 editor.putString(Application.APP_PREFERENCES_TOKEN, res.accessToken);
                 editor.apply();
 
+                progressBar.setVisibility(ProgressBar.VISIBLE);
+
+                Utils.delay(1000);
+
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+
+                progressBar.setVisibility(ProgressBar.INVISIBLE);
+
                 finish();
             }
             @Override

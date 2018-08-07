@@ -2,6 +2,7 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping pattern="ic_menu_account" type="PLAIN_TEXT" />
+      <mapping pattern="corner_radius_round" type="XML" />
     </extensionMap>
   </component>
 </application>

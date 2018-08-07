@@ -5,4 +5,6 @@ public interface MainView {
     void updateList();
 
     void showDownloaded();
+    void showAvatar();
+    void showName();
 }
