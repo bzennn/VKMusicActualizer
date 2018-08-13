@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="78dp"
+    android:layout_marginBottom="0dp"
+    android:layout_marginTop="5dp"
+    android:baselineAligned="false"
+    android:padding="0dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        app:cardCornerRadius="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/audioName"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/audio_name"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/audioAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/audio_author" />
+
+            <TextView
+                android:id="@+id/audioLength"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/audioName"
+                android:layout_marginEnd="50dp"
+                android:text="@string/audio_length" />
+
+            <Button
+                android:id="@+id/audioDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/audio_download" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

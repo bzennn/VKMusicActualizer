@@ -2,6 +2,7 @@ package xyz.bzennn.vkmusicactualizer.implementations.views;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -41,7 +42,6 @@ import xyz.bzennn.vkmusicactualizer.views.MainView;
 public class LoginActivity extends AppCompatActivity implements LoginView{
     private static SharedPreferences.Editor editor = Application.sharedPreferences.edit();
     private static AccountInfoInterface accountInfo = new AccountInfoModel();
-    private static ProgressBar progressBar;
     private static Intent intent;
     private static Toast toast;
 
@@ -54,27 +54,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
         TextView view = (TextView)findViewById(R.id.info);
         view.setMovementMethod(new ScrollingMovementMethod());
-        String formattedText = "<h3>Info about login:</h3>\n" +
-                "<ul>\n" +
-                "<li>Blablabla 1</li><br/>\n" +
-                "<li>Blablabla 2</li><br/>\n" +
-                "<li>Blablabla 3</li><br/>\n" +
-                "<li>Blablabla 4</li><br/>\n" +
-                "<li>Blablabla 5</li><br/>\n" +
-                "<li>Blablabla 6</li><br/>\n" +
-                "<li>Blablabla 7</li><br/>\n" +
-                "<li>Blablabla 8</li><br/>\n" +
-                "<li>Blablabla 9</li><br/>\n" +
-                "<li>Blablabla 10</li><br/>\n" +
-                "<li>Blablabla 11</li><br/>\n" +
-                "<li>Blablabla 12</li><br/>\n" +
-                "<li>Blablabla 13</li><br/>\n" +
-                "<li>Blablabla 14</li><br/>\n" +
-                "<li>Blablabla 15</li><br/>\n" +
-                "<li>Blablabla 16</li><br/>\n" +
-                "<li>Blablabla 17</li><br/>\n" +
-                "<li>Blablabla 18</li><br/>\n" +
-                "</ul>";
+        String formattedText = "<h3>Info about login:</h3>\n";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             view.setText(Html.fromHtml(formattedText, Html.FROM_HTML_MODE_LEGACY));
@@ -82,7 +62,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
             view.setText(Html.fromHtml(formattedText));
         }
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         intent = new Intent(this, MainActivity.class);
     }
 
@@ -102,20 +81,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
             public void onResult(VKAccessToken res) {
                 accountInfo.requestUserInfoIntoPreferences();
 
-                toast = Toast.makeText(getApplicationContext(), R.string.login_toast, Toast.LENGTH_SHORT);
-                toast.show();
-
                 editor.putString(Application.APP_PREFERENCES_TOKEN, res.accessToken);
                 editor.apply();
-
-                progressBar.setVisibility(ProgressBar.VISIBLE);
 
                 Utils.delay(1000);
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
-                progressBar.setVisibility(ProgressBar.INVISIBLE);
+                toast = Toast.makeText(getApplicationContext(), R.string.login_toast, Toast.LENGTH_SHORT);
+                toast.show();
 
                 finish();
             }
@@ -128,4 +103,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+//    private static void setCardLoginVisibility () {
+//        if (cardLoginView.getVisibility() == View.INVISIBLE) {
+//            cardLoginView.setVisibility(View.VISIBLE);
+//        } else if (cardLoginView.getVisibility() == View.VISIBLE){
+//            cardLoginView.setVisibility(View.INVISIBLE);
+//        }
+//    }
 }

@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -22,7 +23,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import xyz.bzennn.vkmusicactualizer.Application;
+import xyz.bzennn.vkmusicactualizer.AudioFile;
+import xyz.bzennn.vkmusicactualizer.PlaylistAdapter;
 import xyz.bzennn.vkmusicactualizer.R;
 import xyz.bzennn.vkmusicactualizer.implementations.models.AccountInfoModel;
 import xyz.bzennn.vkmusicactualizer.models.AccountInfoInterface;
@@ -35,11 +41,15 @@ public class MainActivity extends AppCompatActivity
     private static ImageView avatarView;
     private static TextView nameView;
     private static View headerView;
+    private static RecyclerView recyclerView;
+    private static PlaylistAdapter playlistAdapter;
 
     private static Toast toast;
     private static Intent intent;
 
     public static Activity mainActivity;
+
+    private static List<AudioFile> audioPlaylist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +83,14 @@ public class MainActivity extends AppCompatActivity
         headerView = navigationView.getHeaderView(0);
         avatarView = headerView.findViewById(R.id.avatarView);
         nameView = headerView.findViewById(R.id.nameView);
+
+
+        setInitialData();
+        recyclerView = (RecyclerView) findViewById(R.id.list);
+        playlistAdapter = new PlaylistAdapter(this, audioPlaylist);
+        recyclerView.setAdapter(playlistAdapter);
+
+        accountInfo.requestUserInfoIntoPreferences();
 
         showAvatar();
         showName();
@@ -143,7 +161,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void showAvatar() {
         String url = accountInfo.getUserAvatarUrl();
-        //Picasso.get().load(url).into(avatarView);
         Glide.with(this)
                 .load(url)
                 .apply(RequestOptions.circleCropTransform())
@@ -158,5 +175,18 @@ public class MainActivity extends AppCompatActivity
 
         nameView.setText(name);
 
+    }
+
+    private void setInitialData() {
+        audioPlaylist.add(new AudioFile("Dont stop me now", "Queen", "", "2min"));
+        audioPlaylist.add(new AudioFile("Bohemian Rhapsody", "Queen", "", "8min"));
+        audioPlaylist.add(new AudioFile("Kind of Magic", "Queen", "", "5min"));
+        audioPlaylist.add(new AudioFile("Killer Queen", "Queen", "", "2min"));
+        audioPlaylist.add(new AudioFile("blabla", "Queen", "", "2min"));
+        audioPlaylist.add(new AudioFile("Dont stopw", "Queen", "", "2min"));
+        audioPlaylist.add(new AudioFile("Dont sp me now", "Queen", "", "2min"));
+        audioPlaylist.add(new AudioFile("Dont stop e now", "Queen", "", "2min"));
+        audioPlaylist.add(new AudioFile("Dont op me now", "Queen", "", "2min"));
+        audioPlaylist.add(new AudioFile("Dont sme now", "Queen", "", "2min"));
     }
 }
